@@ -7,8 +7,7 @@ async function carregarProjetos() {
     "banking_operation",
     "sitelegendary",
     "database_mechanical_workshop",
-    "Company_project_DIO",
-    "automation_python"
+    "Company_project_DIO"
   ];
 
   const div = document.getElementById("lista-projetos");
