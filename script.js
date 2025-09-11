@@ -1,21 +1,30 @@
 async function carregarProjetos() {
-  const resposta = await fetch("https://api.github.com/users/meaeduarda/repos");
-  const repositorios = await resposta.json();
+  try {
+    const resposta = await fetch("https://api.github.com/users/meaeduarda/repos");
+    
+    if (!resposta.ok) {
+      throw new Error(`Erro ao carregar repositórios: ${resposta.status}`);
+    }
+    
+    const repositorios = await resposta.json();
 
-  // Lista de nomes dos repositórios que você quer exibir
-  const favoritos = [
-    "banking_operation",
-    "sitelegendary",
-    "database_mechanical_workshop",
-    "Company_project_DIO"
-  ];
+    const favoritos = [
+      "banking_operation",
+      "sitelegendary",
+      "database_mechanical_workshop",
+      "Company_project_DIO"
+    ];
 
-  const div = document.getElementById("lista-projetos");
-  div.innerHTML = "";
+    const div = document.getElementById("lista-projetos");
+    div.innerHTML = "";
 
-  repositorios
-    .filter(repo => favoritos.includes(repo.name))
-    .forEach(repo => {
+    const filtrados = repositorios.filter(repo => favoritos.includes(repo.name));
+
+    if (filtrados.length === 0) {
+      div.innerHTML = "<p>Nenhum projeto encontrado.</p>";
+    }
+
+    filtrados.forEach(repo => {
       const item = document.createElement("div");
       item.classList.add("repositorio");
       item.innerHTML = `
@@ -25,6 +34,12 @@ async function carregarProjetos() {
       `;
       div.appendChild(item);
     });
+
+  } catch (erro) {
+    console.error(erro);
+    document.getElementById("lista-projetos").innerHTML = "<p>Erro ao carregar projetos.</p>";
+  }
 }
 
 carregarProjetos();
+
