@@ -18,7 +18,9 @@ async function carregarProjetos() {
     const div = document.getElementById("lista-projetos");
     div.innerHTML = "";
 
-    const filtrados = repositorios.filter(repo => favoritos.includes(repo.name));
+    const filtrados = repositorios.filter(repo =>
+      favoritos.some(fav => fav.toLowerCase() === repo.name.toLowerCase())
+    );
 
     if (filtrados.length === 0) {
       div.innerHTML = "<p>Nenhum projeto encontrado.</p>";
@@ -42,4 +44,5 @@ async function carregarProjetos() {
 }
 
 carregarProjetos();
+
 
