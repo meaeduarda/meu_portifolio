@@ -13,7 +13,9 @@ async function carregarProjetos() {
       "sitelegendary",
       "database_mechanical_workshop",
       "Company_project_DIO",
-      "automation_python"   
+      "automation_python",
+      "portifolio_gabba",
+      "hotelzinho_e_bercario"
     ];
 
     const div = document.getElementById("lista-projetos");
